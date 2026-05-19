@@ -1,26 +1,244 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Backgrounds */
+  --background-primary: #0c0c0f;
+  --background-secondary: #141416;
+  --background-tertiary: #1b1b1f;
+
+  /* Foregrounds */
+  --foreground-primary: #fafafa;
+  --foreground-secondary: #b3b3bd;
+  --foreground-muted: #7c7c86;
+  --foreground-inverted: #0c0c0f;
+
+  /* Borders */
+  --border: #26262b;
+  --border-subtle: #1d1d21;
+
+  /* Accents */
+  --accent: #ffffff;
+  --accent-hover: #ffffffd9;
+
+  /* Interactive Elements */
+  --interactive-active: #ffffff14;
+  --interactive-hover: #ffffff0a;
+
+  /* Overlay */
+  --overlay: #00000073;
+
+  /* Typography */
+  --font-sans: var(--font-geist-sans), system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
+
+  /* Status */
+  --success: #27c93f;
+  --warning: #ffbd2e;
+  --error: #fd6c64;
+
+  /* Terminal */
+  --terminal: #161618;
+  --terminal-header: #1e1e22;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+@theme {
+  /* Surfaces */
+
+  --color-surface: var(--background-primary);
+  --color-surface-secondary: var(--background-secondary);
+  --color-surface-tertiary: var(--background-tertiary);
+
+  /* Text */
+
+  --color-primary: var(--foreground-primary);
+  --color-secondary: var(--foreground-secondary);
+  --color-muted: var(--foreground-muted);
+  --color-inverted: var(--foreground-inverted);
+
+  /* Accent */
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+
+  /* Interactive */
+
+  --color-interactive-hover: var(--interactive-hover);
+  --color-interactive-active: var(--interactive-active);
+
+  /* Overlay */
+
+  --color-overlay: var(--overlay);
+
+  /* Status */
+
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-error: var(--error);
+
+  /* Terminal */
+
+  --color-terminal: var(--terminal);
+  --color-terminal-header: var(--terminal-header);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--background-primary);
+    color: var(--foreground-primary);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings:
+      "rlig" 1,
+      "calt" 1;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background-color: var(--interactive-active);
+    color: var(--accent);
+  }
+
+  /* Global Scrollbar Hiding */
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  * {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  .button-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-xs px-5 py-2.5 text-sm font-medium transition-colors duration-300 select-none whitespace-nowrap;
+
+    background-color: var(--accent);
+    color: var(--foreground-inverted);
+    cursor: pointer;
+    font-family: var(--font-sans);
+  }
+
+  .button-primary:hover {
+    background-color: var(--accent-hover);
+  }
+
+  .button-primary:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--interactive-active);
+  }
+
+  .button-primary:disabled {
+    pointer-events: none;
+    opacity: 0.5;
+  }
+
+  .button-secondary {
+    @apply inline-flex self-start items-center justify-center gap-2 rounded-xs border px-5 py-2.5 text-sm font-medium transition-colors duration-300 select-none whitespace-nowrap;
+
+    background-color: var(--background-primary);
+    color: var(--foreground-primary);
+    border-color: var(--foreground-primary);
+    cursor: pointer;
+    font-family: var(--font-sans);
+  }
+
+  .button-secondary:hover {
+    background-color: var(--foreground-primary);
+    color: var(--foreground-inverted);
+  }
+
+  .button-secondary:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--interactive-active);
+  }
+
+  .button-secondary:disabled {
+    pointer-events: none;
+    opacity: 0.5;
+  }
+
+  .link {
+    @apply inline-flex items-center gap-1 transition-all duration-300;
+
+    color: var(--foreground-primary);
+    cursor: pointer;
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    text-underline-offset: 0.2em;
+  }
+
+  .link:hover {
+    color: var(--foreground-secondary);
+    text-decoration-color: currentColor;
+  }
+
+  .link:focus-visible {
+    outline: none;
+    border-radius: 0.25rem;
+    box-shadow: 0 0 0 2px var(--interactive-active);
+  }
+
+  .card {
+    @apply flex flex-col items-start justify-start rounded-sm border p-3 md:p-6 gap-4;
+
+    background-color: var(--background-secondary);
+    border-color: var(--border);
+    font-family: var(--font-sans);
+    width: 100%;
+    max-width: 32rem;
+  }
+
+  .section-eyebrow {
+    @apply font-mono text-xs tracking-[0.14em] text-muted;
+  }
+
+  .section-heading {
+    @apply max-w-4xl whitespace-pre-line text-3xl sm:text-4xl md:text-5xl lg:text-7xl leading-[1.05] text-primary font-light tracking-tight;
+  }
+
+  .section-description {
+    @apply text-sm sm:text-base md:text-lg lg:text-xl text-secondary leading-relaxed;
+  }
+}
+
+@layer utilities {
+  .border-default {
+    border-color: var(--border);
+  }
+
+  .border-subtle {
+    border-color: var(--border-subtle);
+  }
+
+  .snap-layout {
+    scroll-snap-type: y mandatory;
+    overflow-y: auto;
+    height: 100dvh;
+    width: 100dvw;
+  }
+
+  .snap-section {
+    @apply mx-auto min-h-dvh flex w-full max-w-7xl flex-col px-6 pt-24 pb-24 md:px-10 md:py-32 justify-center;
+
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    align-items: flex-start;
+    position: relative;
+  }
+
+  @keyframes terminal-cursor {
+    0%,
+    50% {
+      opacity: 1;
+    }
+
+    50.01%,
+    100% {
+      opacity: 0;
+    }
+  }
 }
