@@ -2,6 +2,11 @@
 module.exports = {
   siteUrl: "https://parseth.com",
   generateRobotsTxt: true,
+  exclude: [
+    "/ui-tests",
+    "/ui-tests/*",
+    "/api/*",
+  ],
   robotsTxtOptions: {
     policies: [
       { userAgent: "*", allow: "/" }
