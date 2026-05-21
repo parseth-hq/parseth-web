@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   },
 
   description:
-    "Parseth engineers AI and ML systems that deliver measurable business results. Fixed-scope AI consulting, ML infrastructure, LLM systems, automation, and production-grade deployment.",
+    "Parseth is an AI and ML engineering consultancy offering fixed-scope audits, production system builds, and team augmentation. Serving clients across India, US, and globally.",
 
   authors: [
     {
